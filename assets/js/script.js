@@ -1,71 +1,71 @@
-const calculateButton = document.getElementById("calculate");
-const yearInput = document.getElementById("year");
-const monthInput = document.getElementById("month");
-const isDependentCheckbox = document.getElementById("is-dependent");
-const resultParagraph = document.getElementById("result");
+const botonCalculo = document.getElementById("calcular");
+const inputAnio = document.getElementById("anio");
+const inputMes = document.getElementById("mes");
+const cargaFamiliarCheckbox = document.getElementById("cargaFamiliar");
+const parrafoResultado = document.getElementById("resultado");
 
-calculateButton.addEventListener("click", () => {
-    const currentYear = new Date().getFullYear();
-    const year = parseInt(yearInput.value);
-    const month = parseInt(monthInput.value);
-    const isDependent = isDependentCheckbox.checked;
+botonCalculo.addEventListener("click", () => {
+    const anioActual = new Date().getFullYear();
+    const anio = parseInt(inputAnio.value);
+    const mes = parseInt(inputMes.value);
+    const cargaFamiliar = cargaFamiliarCheckbox.checked;
 
-    if (isNaN(year) || isNaN(month)) {
-        resultParagraph.innerText = "Ingrese un año y un mes válidos";
+    if (isNaN(anio) || isNaN(mes)) {
+        parrafoResultado.innerText = "Ingrese un año y un mes válidos";
         return;
     }
 
-    if (year > currentYear || month < 1 || month > 12) {
-        resultParagraph.innerText = "Ingrese un año y un mes válidos";
+    if (anio > anioActual || mes < 1 || mes > 12) {
+        parrafoResultado.innerText = "Ingrese un año y un mes válidos";
         return;
     }
 
-    const ageInMonths = (new Date() - new Date(year, month - 1)) / 1000 / 60 / 60 / 24 / 30;
-    const ageInYears = ageInMonths / 12;
-    let ageRange;
+    const edadEnMeses = (new Date() - new Date(anio, mes - 1)) / 1000 / 60 / 60 / 24 / 30;
+    const edadEnAnios = edadEnMeses / 12;
+    let rangoEtario;
 
-    if (ageInMonths < 24) {
-        ageRange = "Infante";
-    } else if (ageInMonths < 144) {
-        ageRange = "Niño";
-    } else if (ageInMonths < 216) {
-        ageRange = "Adolescente";
-    } else if (ageInYears < 65) {
-        ageRange = "Adulto";
-    } else if (ageInYears < 85) {
-        ageRange = "Adulto mayor";
-    } else if (ageInYears >= 85) {
-        ageRange = "Años dorados";
+    if (edadEnMeses < 24) {
+        rangoEtario = "Infante";
+    } else if (edadEnMeses < 144) {
+        rangoEtario = "Niño";
+    } else if (edadEnMeses < 216) {
+        rangoEtario = "Adolescente";
+    } else if (edadEnAnios < 65) {
+        rangoEtario = "Adulto";
+    } else if (edadEnAnios < 85) {
+        rangoEtario = "Adulto mayor";
+    } else if (edadEnAnios >= 85) {
+        rangoEtario = "Años dorados";
     } else {
-        ageRange = "Nonato";
+        rangoEtario = "Nonato";
     }
 
-    let message = `La persona se encuentra en el rango etario de ${ageRange}.`;
+    let mensaje = `La persona se encuentra en el rango etario de ${rangoEtario}.`;
 
-    if (isDependent && (ageInMonths < 216)) {
-        message += " Corresponde el pago de asignación familiar.";
-    } else if (!isDependent && (ageInMonths < 216)) {
-        message += " No corresponde el pago de asignación familiar.";
+    if (cargaFamiliar && (edadEnMeses < 216)) {
+        mensaje += " Corresponde el pago de asignación familiar.";
+    } else if (!cargaFamiliar && (edadEnMeses < 216)) {
+        mensaje += " No corresponde el pago de asignación familiar.";
     }
 
-    resultParagraph.innerText = message;
+    parrafoResultado.innerText = mensaje;
 
-    const hireYear = parseInt(prompt("Ingrese el año de ingreso a la organización"));
-    const hireMonth = parseInt(prompt("Ingrese el mes de ingreso a la organización"));
+    const mesContrato = parseInt(prompt("Ingrese el mes de ingreso a la organización"));
+    const anioContrato = parseInt(prompt("Ingrese el año de ingreso a la organización"));
 
-    if (isNaN(hireYear) || isNaN(hireMonth) || hireYear > currentYear || hireMonth < 1 || hireMonth > 12) {
+    if (isNaN(anioContrato) || isNaN(mesContrato) || anioContrato > anioActual || mesContrato < 1 || mesContrato > 12) {
         return;
     }
 
-    const yearsWorked = currentYear - hireYear;
-    const monthsWorked = 12 - hireMonth;
+    const aniosTrabajados = anioActual - anioContrato;
+    const mesesTrabajados = 12 - mesContrato;
 
-    if (monthsWorked === 12) {
-        message += " Usted ha trabajado durante " + yearsWorked + " años en la organización.";
+    if (mesesTrabajados === 12) {
+        mensaje += " Ha trabajado durante " + aniosTrabajados + " años en la organización.";
     } else {
-        message += " Usted ha trabajado durante " + yearsWorked + " años y " + monthsWorked + " meses en la organización.";
-        message += " Faltan " + (12 - monthsWorked) + " meses para completar el próximo año de permanencia.";
+        mensaje += " Ha trabajado durante " + aniosTrabajados + " años y " + mesesTrabajados + " meses en la organización.";
+        mensaje += " Faltan " + (12 - mesesTrabajados) + " meses para completar el próximo año de permanencia.";
     }
 
-    resultParagraph.innerText = message;
+    parrafoResultado.innerText = mensaje;
 });
