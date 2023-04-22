@@ -1,6 +1,6 @@
 const calculateButton = document.getElementById("calculate");
-const yearInput = document.getElementById("year");
 const monthInput = document.getElementById("month");
+const yearInput = document.getElementById("year");
 const isDependentCheckbox = document.getElementById("is-dependent");
 const resultParagraph = document.getElementById("result");
 
@@ -50,8 +50,8 @@ calculateButton.addEventListener("click", () => {
 
     resultParagraph.innerText = message;
 
-    const hireYear = parseInt(prompt("Ingrese el año de ingreso a la organización"));
     const hireMonth = parseInt(prompt("Ingrese el mes de ingreso a la organización"));
+    const hireYear = parseInt(prompt("Ingrese el año de ingreso a la organización"));
 
     if (isNaN(hireYear) || isNaN(hireMonth) || hireYear > currentYear || hireMonth < 1 || hireMonth > 12) {
         return;
